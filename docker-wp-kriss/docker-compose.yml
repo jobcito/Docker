@@ -1,0 +1,36 @@
+version: '2'
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.3
+    volumes:
+      - mariadb-persistence:/bitnami/mariadb      
+  volumes: 
+    mariadb-persistence:
+      driver: azure_file
+        driver_opts: 
+          share_name: mariadb-persistence
+          storage_account_name: almacenwordpress
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_wordpress
+      - MARIADB_DATABASE=bitnami_wordpress
+  wordpress:
+    image: docker.io/bitnami/wordpress:5
+    domainname: "krisswp"
+    ports:
+      - "80:80"
+    volumes:
+      - wordpress-persistence:/bitnami/wordpress
+      wordpress-persistence:
+        driver: azure_file
+          driver_opts: 
+            share_name: wordpress-persistence
+            storage_account_name: almacenwordpress
+    depends_on:
+      - mariadb
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - WORDPRESS_DATABASE_HOST=mariadb
+      - WORDPRESS_DATABASE_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_USER=bn_wordpress
+      - WORDPRESS_DATABASE_NAME=bitnami_wordpress

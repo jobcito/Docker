@@ -1,0 +1,11 @@
+ARG VERSION=latest
+
+FROM gcc:${VERSION}
+
+COPY . /usr/src/ejemplos
+
+WORKDIR /usr/src/ejemplos
+
+RUN gcc -o HolaMundo HolaMundo.c
+
+CMD ["./HolaMundo"]

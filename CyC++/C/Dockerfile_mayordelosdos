@@ -1,0 +1,11 @@
+ARG VERSION=latest
+
+FROM gcc:${VERSION}
+
+COPY . /usr/src/ejemplos
+
+WORKDIR /usr/src/ejemplos
+
+RUN gcc -o mayordelosdos Mayordelosdos.c
+
+CMD ["./mayordelosdos"]
