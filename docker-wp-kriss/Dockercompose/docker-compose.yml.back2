@@ -1,25 +1,37 @@
-version: '2'
+version: '3.9'
 services:
   mariadb:
     image: docker.io/bitnami/mariadb:10.3
     volumes:
-      - /home/job/.data_apps/Docker/mariadb_data:/bitnami/mariadb
+      - mariadb_persistence:/bitnami/mariadb
+    restart: always
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - MARIADB_USER=bn_wordpress
       - MARIADB_DATABASE=bitnami_wordpress
   wordpress:
-    image: docker.io/bitnami/wordpress-nginx:5
+    image: docker.io/bitnami/wordpress:5
     ports:
-      - '80:8080'
-      - '443:8443'
+      - '8080:8080'
     volumes:
-      - /home/job/.data_apps/Docker/wordpress_data:/bitnami/wordpress
+      - wordpress_persistence:/bitnami/wordpress
     depends_on:
       - mariadb
+    restart: always
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - WORDPRESS_DATABASE_HOST=mariadb
       - WORDPRESS_DATABASE_PORT_NUMBER=3306
       - WORDPRESS_DATABASE_USER=bn_wordpress
       - WORDPRESS_DATABASE_NAME=bitnami_wordpress
+volumes:
+  mariadb_persistence:
+    driver: local
+    driver_opts:
+      type: bind
+      device: ./mariadb_persistence    
+  wordpress_persistence:
+    driver: local
+    driver_opts:
+      type: bind
+      device: ./wordpress_persistence    
