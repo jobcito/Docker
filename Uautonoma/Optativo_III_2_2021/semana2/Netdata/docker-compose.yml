@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 services:
   netdata:
     image: netdata/netdata
@@ -21,7 +21,7 @@ services:
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
     environment:
-      - NETDATA_CLAIM_TOKEN=tKkNHQkHUJU4qb76OfeqxlOOK8TeUtnZ9uxCP96itnZnz63tiQiNc-dOMo4jFqWWjKnXyssG8Stt1IZBI9I5Z1bfN7bq4Fk3Tr5Ux_s79i8rBYthSnIic54fUlcou-NSTbqylLI
+      - NETDATA_CLAIM_TOKEN=QPA2AycoiVCOHGwOkRrqo1xOsY5Lv4wnrRWrgHEvw7w1MVEDy8UtC8DZl8RKdlDh_Dkr6RiOs52oqXRv9easEjDbeu3BD8ihW1UvTz-dtLBfN0DWd-veMbG44tVtuLSGbKtb85w
       - NETDATA_CLAIM_URL=https://app.netdata.cloud
       - NETDATA_CLAIM_ROOMS=1905ecb6-1765-4ea4-b254-101e95016747
     volumes:
