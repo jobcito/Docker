@@ -3,7 +3,7 @@ services:
   mariadb:
     image: docker.io/bitnami/mariadb:10.3
     volumes:
-      - /home/job/.data_apps/Docker/mariadb_data:/bitnami/mariadb
+      - ./mariadb_data:/bitnami/mariadb
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - MARIADB_USER=bn_wordpress
@@ -14,7 +14,7 @@ services:
       - '80:8080'
       - '443:8443'
     volumes:
-      - /home/job/.data_apps/Docker/wordpress_data:/bitnami/wordpress
+      - ./wordpress_data:/bitnami/wordpress
     depends_on:
       - mariadb
     environment:
